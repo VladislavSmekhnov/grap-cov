@@ -1,10 +1,11 @@
 package org.example;
 
-import java.util.HashSet;
-import java.util.Set;
-
 public class Main {
     public static void main(String[] args) {
-        //
+        var graphReader = new GraphReader("src/main/java/org/example/data/1.mis");
+        var graph = graphReader.read();
+        var explicitAlgorithm = new ExplicitAlgorithm(graph);
+        var res = explicitAlgorithm.checkSubsets();
+        System.out.println(res);
     }
 }
