@@ -1,3 +1,5 @@
+import random
+
 def get_max_deg(vertex):
     I = 0
     max_deg = 0
@@ -62,6 +64,27 @@ def solve(graph):
     [1, 0]
 ]'''
 
+def generate_random_adjacency_matrix(n):
+    adjacency_matrix = [[random.randint(0, 1) for _ in range(n)] for _ in range(n)]
+
+    for i in range(n):
+        if adjacency_matrix[i][i] == 1:
+            adjacency_matrix[i][i] = 0
+
+    for i in range(n):
+        for j in range(i+1, n):
+            adjacency_matrix[j][i] = adjacency_matrix[i][j]
+
+    return adjacency_matrix
+
+'''print(generate_random_adjacency_matrix(5))
+'''
+adj_matrix = generate_random_adjacency_matrix(1000)
+'''for row in adj_matrix:
+        print(row)'''
+
+
+
 graph =[[0, 1, 1, 0, 0],
  [1, 0, 1, 1, 0],
  [1, 1, 0, 0, 1],
@@ -69,47 +92,6 @@ graph =[[0, 1, 1, 0, 0],
  [0, 0, 1, 1, 0]]
 
 
-result = solve(graph)
+result = solve(adj_matrix)
 print(result)
 
-'''class Graph:
-    def __init__(self, vertices):
-        self.vertices = vertices
-        self.adjList = [[] for _ in range(vertices)]
-    
-    def addEdge(self, u, v):
-        self.adjList[u].append(v)
-        self.adjList[v].append(u)
-    
-    def minVertexCover(self):
-        visited = [False] * self.vertices
-        cover = []
-
-        for u in range(self.vertices):
-            if not visited[u]:
-                for v in self.adjList[u]:
-                    if not visited[v]:
-                        visited[u] = True
-                        visited[v] = True
-                        cover.append(u)
-                        cover.append(v)
-                        break
-        
-        return cover
-
-if __name__ == "__main__":
-    graph = Graph(5)
-    graph.addEdge(0, 1)
-    graph.addEdge(1, 2)
-    graph.addEdge(2, 3)
-    graph.addEdge(3, 4)
-    graph.addEdge(4, 0)
-    graph = Graph(5)
-    graph.addEdge(1, 2)
-    graph.addEdge(2, 3)
-    graph.addEdge(3, 4)
-    graph.addEdge(4, 5)
-    graph.addEdge(5, 2)
-
-    result = graph.minVertexCover()
-    print("Minimum Vertex Cover:", result)'''
