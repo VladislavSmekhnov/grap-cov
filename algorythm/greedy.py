@@ -77,21 +77,22 @@ def generate_random_adjacency_matrix(n):
 
     return adjacency_matrix
 
+
 '''print(generate_random_adjacency_matrix(5))
 '''
-adj_matrix = generate_random_adjacency_matrix(1000)
+adj_matrix = generate_random_adjacency_matrix(5)
 '''for row in adj_matrix:
         print(row)'''
 
 
 
-graph =[[0, 1, 1, 0, 0],
+graphT =[[0, 1, 1, 0, 0],
  [1, 0, 1, 1, 0],
  [1, 1, 0, 0, 1],
  [0, 1, 0, 0, 1],
  [0, 0, 1, 1, 0]]
 
 
-result = solve(adj_matrix)
+result = solve(graphT)
 print(result)
 
