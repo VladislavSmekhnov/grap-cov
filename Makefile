@@ -4,7 +4,7 @@ install:
 	pip3 --version
 	pip3 install -r requirements.txt
 
-run: install
+run:
 	python3 main.py
 
 generate_requirements:
