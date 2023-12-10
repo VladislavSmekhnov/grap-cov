@@ -1,7 +1,5 @@
 from datetime import datetime
-from util.reader import Reader
-from algorythm.lazy import LazyAlg
-from algorythm import greedy
+from algorythm import greedy, lazy, explicit
 from util import generator
 
 DATA_FOLDER_PATH = "data/"
@@ -14,25 +12,19 @@ def print_result(n, res, start):
     print(f"Time: {datetime.now() - start}")
 
 
-def test_lazy_alg():
-    for n in [10, 50, 100, 200, 500, 1000]:
+def test_alg(alg):
+    for n in [10, 15, 20, 25]:
         graph = generator.generate_random_adjacency_matrix(n)
         start = datetime.now()
-        lazy = LazyAlg(graph)
-        res = lazy.solve()
+        res = alg.solve(graph)
         print_result(n, res, start)
 
-def test_greedy_alg():
-    for n in [10, 50, 100, 200, 500, 1000]:
-        graph = generator.generate_random_adjacency_matrix(n)
-        start = datetime.now()
-        res = greedy.solve(graph)
-        print_result(n, res, start)
 
 def main():
-     test_lazy_alg()
-    # test_greedy_alg()
-    
+    print('-' * 10, 'GREEDY ALGORYTHM TEST', '-' * 10)
+    test_alg(greedy)
+    print('-' * 10, 'EXPLICIT ALGORYTHM TEST', '-' * 10)
+    test_alg(explicit)
 
 
 if __name__ == '__main__':
