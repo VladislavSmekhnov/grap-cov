@@ -19,46 +19,34 @@ def test_alg(alg, graph):
     return time
 
 
-def test_algs1():
-    test_sizes = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
-    graphs = []
-    for n in test_sizes:
-        graphs.append(generator.generate_random_adjacency_matrix(n))
-    algs = [greedy, lazy, explicit, bnb]
+def test_algs(algs, test_sizes):
+    graphs = [generator.generate_random_adjacency_matrix(n) for n in test_sizes]
     alg_time_results = defaultdict(lambda: [])
     for alg in algs:
-        print('-' * 10, f'{alg} algorythm test', '-' * 10)
+        is_valid_time = True
+        print('-' * 10, f'{alg.__name__} algorythm test', '-' * 10)
         for graph in graphs:
+            if not is_valid_time:
+                alg_time_results[alg].append(1500)
+                continue
             graph_copy = [row.copy() for row in graph]
-            alg_time_results[alg].append(test_alg(alg, graph_copy))
+            time = test_alg(alg, graph_copy)
+            if time > 1500:
+                is_valid_time = False
+                alg_time_results[alg].append(1500)
+                continue
+            alg_time_results[alg].append(time)
             print()
-    for alg in algs:
-        plt.plot(test_sizes, alg_time_results[alg], label=alg)
-    plt.legend()
-    plt.show()
-
-
-def test_algs2():
-    test_sizes = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
-    graphs = []
-    for n in test_sizes:
-        graphs.append(generator.generate_random_adjacency_matrix(n))
-    algs = [greedy, lazy, bnb]
-    alg_time_results = defaultdict(lambda: [])
-    for alg in algs:
-        print('-' * 10, f'{alg} algorythm test', '-' * 10)
-        for graph in graphs:
-            graph_copy = [row.copy() for row in graph]
-            alg_time_results[alg].append(test_alg(alg, graph_copy))
-            print()
-    for alg in algs:
-        plt.plot(test_sizes, alg_time_results[alg], label=alg)
+        plt.plot(test_sizes, alg_time_results[alg], label=alg.__name__)
+    plt.xlabel("Размерность")
+    plt.ylabel("Время (мс)")
+    plt.yticks(list(plt.yticks()[0]) + [1500], list(plt.yticks()[0]) + ['>1500'])
     plt.legend()
     plt.show()
 
 
 def main():
-    test_algs2()
+    test_algs([greedy, lazy, bnb, explicit], list(range(10, 101)))
 
 
 if __name__ == '__main__':
