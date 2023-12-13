@@ -2,6 +2,7 @@ from datetime import *
 from algorythm import greedy, lazy, explicit, bnb
 from util import generator
 import matplotlib.pyplot as plt
+from collections import defaultdict
 
 
 def print_result(n, res, time):
@@ -10,40 +11,54 @@ def print_result(n, res, time):
     print(f"Time: {time} ms")
 
 
-def test_alg(alg, sizes):
-    if alg == explicit:
-        sizes = [5, 10, 20]
-    time_results = []
-    for n in sizes:
-        graph = generator.generate_random_adjacency_matrix(n)
-        start = datetime.now()
-        res = alg.solve(graph)
-        time = (datetime.now() - start) / timedelta(milliseconds=1)
-        print_result(n, res, time)
-        time_results.append(time)
-    return time_results
+def test_alg(alg, graph):
+    start = datetime.now()
+    res = alg.solve(graph)
+    time = (datetime.now() - start) / timedelta(milliseconds=1)
+    print_result(len(graph), res, time)
+    return time
 
 
-def test_algs():
-    sizes = [5, 10, 20, 50, 100, 200, 500]
-    print('-' * 10, 'GREEDY ALGORYTHM TEST', '-' * 10)
-    greedy_time_results = test_alg(greedy, sizes)
-    print('-' * 10, 'BRANCH AND BOUND ALGORYTHM TEST', '-' * 10)
-    test_alg(bnb, sizes)
-    print('-' * 10, 'LAZY ALGORYTHM TEST', '-' * 10)
-    lazy_time_results = test_alg(lazy, sizes)
-    # print('-' * 10, 'EXPLICIT ALGORYTHM TEST', '-' * 10)
-    # explicit_time_results = test_alg(explicit, sizes)
+def test_algs1():
+    test_sizes = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
+    graphs = []
+    for n in test_sizes:
+        graphs.append(generator.generate_random_adjacency_matrix(n))
+    algs = [greedy, lazy, explicit, bnb]
+    alg_time_results = defaultdict(lambda: [])
+    for alg in algs:
+        print('-' * 10, f'{alg} algorythm test', '-' * 10)
+        for graph in graphs:
+            graph_copy = [row.copy() for row in graph]
+            alg_time_results[alg].append(test_alg(alg, graph_copy))
+            print()
+    for alg in algs:
+        plt.plot(test_sizes, alg_time_results[alg], label=alg)
+    plt.legend()
+    plt.show()
 
-    # plt.plot(sizes, greedy_time_results, label='greedy')
-    # plt.plot(sizes, lazy_time_results, label='lazy')
-    # plt.plot(sizes, explicit_time_results, label='explicit')
-    # plt.legend()
-    # plt.show()
+
+def test_algs2():
+    test_sizes = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
+    graphs = []
+    for n in test_sizes:
+        graphs.append(generator.generate_random_adjacency_matrix(n))
+    algs = [greedy, lazy, bnb]
+    alg_time_results = defaultdict(lambda: [])
+    for alg in algs:
+        print('-' * 10, f'{alg} algorythm test', '-' * 10)
+        for graph in graphs:
+            graph_copy = [row.copy() for row in graph]
+            alg_time_results[alg].append(test_alg(alg, graph_copy))
+            print()
+    for alg in algs:
+        plt.plot(test_sizes, alg_time_results[alg], label=alg)
+    plt.legend()
+    plt.show()
 
 
 def main():
-    test_algs()
+    test_algs2()
 
 
 if __name__ == '__main__':
