@@ -3,9 +3,6 @@ from algorythm import greedy, lazy, explicit, bnb
 from util import generator
 import matplotlib.pyplot as plt
 
-DATA_FOLDER_PATH = "data/"
-DATA_FILES = ["1.mis", "2.mis", "3.mis", "4.mis", "5.mis"]
-
 
 def print_result(n, res, time):
     print("Минимальное вершинное покрытие: ", len(res))
@@ -39,7 +36,7 @@ def test_algs():
     lazy_time_results = test_alg(lazy, sizes)
     print('-' * 10, 'EXPLICIT ALGORYTHM TEST', '-' * 10)
     explicit_time_results = test_alg(explicit, sizes)
-    
+
     plt.plot(sizes, greedy_time_results, label='greedy')
     plt.plot(sizes, lazy_time_results, label='lazy')
     plt.plot(sizes, explicit_time_results, label='explicit')
