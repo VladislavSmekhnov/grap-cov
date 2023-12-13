@@ -6,7 +6,7 @@ import numpy as np
 def solve(matrix):
     adj_matrix = np.array(matrix)
     matrix_nx = nx.from_numpy_array(adj_matrix)
-    return BNB(matrix_nx, 600)
+    return BNB(matrix_nx, 20)
 
 
 # функция для удаления элементов из оптимального vc, если они не находятся в "рассматриваемом" состоянии
