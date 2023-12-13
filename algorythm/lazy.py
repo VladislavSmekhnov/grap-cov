@@ -1,28 +1,23 @@
-class LazyAlg:
-    def __init__(self, graph):
-        self.graph = graph
-        self.len = len(graph)
+def chose_first_edge(graph, k):
+    for i in range(1, len(graph)):
+        if graph[i][k] == 1:
+            return i
+    return -1
 
-    def chose_first_edge(self, k):
-        for i in range(1, self.len):
-            if self.graph[i][k] == 1:
-                return i
-        return -1
+def remove_incident(graph, i, j):
+    for k in range(len(graph)):
+        graph[i][k] = 0
+        graph[k][i] = 0
+        graph[j][k] = 0
+        graph[k][j] = 0
 
-    def remove_incident(self, i, j):
-        for k in range(self.len):
-            self.graph[i][k] = 0
-            self.graph[k][i] = 0
-            self.graph[j][k] = 0
-            self.graph[k][j] = 0
-
-    def solve(self):
-        vertex_cover = []
-        for i in range(self.len):
-            k = self.chose_first_edge(i)
-            if k == -1:
-                continue
-            vertex_cover.append(i)
-            vertex_cover.append(k)
-            self.remove_incident(i, k)
-        return vertex_cover
+def solve(graph):
+    vertex_cover = []
+    for i in range(len(graph)):
+        k = chose_first_edge(graph, i)
+        if k == -1:
+            continue
+        vertex_cover.append(i)
+        vertex_cover.append(k)
+        remove_incident(graph, i, k)
+    return vertex_cover
