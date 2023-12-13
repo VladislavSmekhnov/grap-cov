@@ -4,12 +4,14 @@ def chose_first_edge(graph, k):
             return i
     return -1
 
+
 def remove_incident(graph, i, j):
     for k in range(len(graph)):
         graph[i][k] = 0
         graph[k][i] = 0
         graph[j][k] = 0
         graph[k][j] = 0
+
 
 def solve(graph):
     vertex_cover = []
