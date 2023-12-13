@@ -25,10 +25,7 @@ def count_vertex_degs(graph):
 
 
 def is_empty(vertex):
-    for i in range(len(vertex)):
-        if vertex[i] != 0:
-            return False
-    return True
+    return all(v == 0 for v in vertex)
 
 
 def solve(graph):
@@ -59,7 +56,7 @@ def generate_random_adjacency_matrix(n):
             adjacency_matrix[i][i] = 0
 
     for i in range(n):
-        for j in range(i+1, n):
+        for j in range(i + 1, n):
             adjacency_matrix[j][i] = adjacency_matrix[i][j]
 
     return adjacency_matrix

@@ -1,7 +1,7 @@
-
 from time import time
 import networkx as nx
 import numpy as np
+
 
 def solve(matrix):
     adj_matrix = np.array(matrix)
@@ -11,17 +11,14 @@ def solve(matrix):
 
 # функция для удаления элементов из оптимального vc, если они не находятся в "рассматриваемом" состоянии
 def removeFalse(optimalVC: list):
-    for ele in optimalVC:
-        if not ele[1]:
-            optimalVC.remove(ele)
-    return optimalVC
+    return [ele for ele in optimalVC if ele[1]]
 
 
 # branch and bound
 def BNB(bnbGraph, timeLimit):
     # Преобразование временного лимита в целое число
     timeLimit = int(timeLimit)
-    timeTaken=0
+    timeTaken = 0
     # Запоминаем время начала выполнения алгоритма
     startTime = time()
     # Создаем копию входного графа
