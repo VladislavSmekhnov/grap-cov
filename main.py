@@ -1,5 +1,5 @@
 from datetime import datetime
-from algorythm import greedy, lazy, explicit
+from algorythm import greedy, lazy, explicit,bnb
 from util import generator
 
 DATA_FOLDER_PATH = "data/"
@@ -23,6 +23,8 @@ def test_alg(alg):
 def main():
     print('-' * 10, 'GREEDY ALGORYTHM TEST', '-' * 10)
     test_alg(greedy)
+    print('-' * 10, 'BRANCH AND BOUND ALGORYTHM TEST', '-' * 10)
+    test_alg(bnb)
     print('-' * 10, 'EXPLICIT ALGORYTHM TEST', '-' * 10)
     test_alg(explicit)
 
